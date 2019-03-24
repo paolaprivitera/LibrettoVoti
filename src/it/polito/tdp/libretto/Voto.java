@@ -1,11 +1,57 @@
 package it.polito.tdp.libretto;
-import java.time.LocalDate;
+import java.time.LocalDate; // java.time permette di lavorare con le date
 
 public class Voto {
 	
 	private int voto;
 	private String corso;
-	private LocalDate data;
+	private LocalDate data; // non si usa una stringa per definire una data!!
+	
+	// Tutte le funzionalita' di controllo versione su eclipse
+	// sono sotto la voce Team (tasto dx sul nome del progetto)
+	// CREARE UN REPOSITORY
+	// Team -> Share Project (per creare un nuovo repository)
+	// spuntare Use or create repository in parent folder of project
+	// cliccare Create Repository (e si mette la spunta nel nome del progetto)
+	
+	// Si puo' visualizzare una finestra Git Repository dove ci sono tutti
+	// i repository salvati sul nostro pc
+	// Window -> show view -> other -> Git Repository
+	
+	// COMMIT (salvo localmente) oppure COMMIT AND PUSH (salvo anche su GitHub)
+	// tast dx sul nome del progetto -> Team -> Share Project -> Commit (che apre Git Staging)
+	// portare i file che si vogliono committare da unstaged changes -> staged changes
+	// oppure premere ++ per prenderli tutti
+	// a dx si inserisce il Commit Message
+	// infine si clicca commit
+	
+	// Team -> Show in History
+	// compare un tag con la storia del progetto
+	// dove ogni riga indica un commit
+	
+	// La versione che presenta l'etichetta HEAD e' la piu' recente di tutte
+	// L'etichetta master indica qual è il ramo di sviluppo
+	
+	// Per tornare alla versione vecchia si va nella History,
+	// si clicca sulla riga relativa alla versione in cui si vuole andare
+	// tasto dx -> check out
+	
+	// Si puo' tornare alla versione nuova
+	// Team -> Switch to -> master
+	
+	// Per pushare il file su GitHub
+	// Team -> Push Branch 'master' 
+	// Nell'URl si mette l'indirizzo copiato da GitHub
+	// Bisogna inserire le credenziali di GitHub
+	
+	// Team -> Commit -> Commit and Push (lo salva direttamente su GitHub)
+	
+	// CLONAZIONE
+	// Operazione di scaricamento iniziale da un repository remoto
+	// per creare un repository locale
+	
+	// FORK
+	// Si utilizza per clonare il progetto sul proprio profilo
 	
 	public Voto(int voto, String corso, LocalDate data) {
 		this.voto = voto;
@@ -36,6 +82,15 @@ public class Voto {
 	public void setData(LocalDate data) {
 		this.data = data;
 	}
+
+	// Per visualizzare nel debug il voto in un formato leggibile
+	// e non visualizzare il riferimento
+	
+	@Override
+	public String toString() {
+		return String.format("Voto [voto=%s, corso=%s, data=%s]", voto, corso, data);
+	}
+
 	
 	
 }

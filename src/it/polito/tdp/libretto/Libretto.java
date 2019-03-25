@@ -66,12 +66,30 @@ public class Libretto {
 	 * @return il {@link Voto} corrispondente, oppure {@code null} se non esistente
 	 */
 	public Voto cercaEsame(String nomeEsame) {
-		for(Voto v : this.voti) {
+		// Esiste gia' una funzione che ha lo stesso compito
+		/*for(Voto v : this.voti) {
 			if(v.getCorso().equals(nomeEsame)) {
 				return v;
 			}
-		}
-		return null;
+		}*/
+		
+		// Esiste sia l'indexOf che il lastIndexOf a seconda che si voglia cercare
+		// dall'inizio oppure dalla fine
+		
+		// indexOf() vuole un oggetto della lista quindi della classe voto
+		// ma io non ho nessuna informazione di questo oggetto se non il nomeEsame
+		// --------> quindi gli fornisco un oggetto costruito con lo stesso nomeEsame
+		// ma valori casuali per gli altri attributi
+		// perche' indexOf richiama il metodo equals che confrontera' soltanto il nomeEsame
+		// quindi gli altri campi non verranno mai consultati
+		
+		Voto voto = new Voto(0, nomeEsame, null);
+		
+		int posizione = this.voti.indexOf(voto);
+		if(posizione == -1)
+			return null;
+		else
+			return this.voti.get(posizione);
 	}
 	
 	/**
@@ -80,12 +98,26 @@ public class Libretto {
 	 * 
 	 * @param v 
 	 * @return {@code true}, se ha trovato un corso e punteggio uguali,
-	 * 		   {@code false}, se non ha trovto il corso, oppure l'ha trovato
+	 * 		   {@code false}, se non ha trovato il corso, oppure l'ha trovato
 	 * 		   con voto diverso
 	 */
 	public boolean esisteGiaVoto(Voto v) {
 		
-		Voto trovato = this.cercaEsame(v.getCorso());
+		int posizione = this.voti.indexOf(v);
+		if(posizione == -1)
+			return false;
+		else
+			return (v.getPunti() == this.voti.get(posizione).getPunti());
+		
+		/*else {
+			if(v.getPunti() == this.voti.get(posizione).getPunti())
+				return true;
+			else 
+				return false;
+		}*/
+			
+		
+		/*Voto trovato = this.cercaEsame(v.getCorso());
 		if(trovato==null) {
 			return false;
 		}
@@ -94,6 +126,6 @@ public class Libretto {
 		}
 		else {
 			return false;
-		}
+		}*/
 	}
 }

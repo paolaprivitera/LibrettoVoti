@@ -33,7 +33,7 @@ public class Libretto {
 			return false;
 		}
 	}
-	
+
 	// Abbiamo potenziato il metodo add in modo da rifiutare
 	// l'inserimento di dati errati
 
@@ -161,4 +161,68 @@ public class Libretto {
 	public String toString() {
 		return this.voti.toString();
 	}
+
+	public Libretto librettoMigliorato() {
+		Libretto nuovo = new Libretto();
+
+		for(Voto v : this.voti) {
+
+			// --------> nuovo.add(v);
+
+			// In questo modo non funziona perche' abbiamo copiato
+			// i riferimenti degli oggetti precedenti
+			// quindi in questo modo stamperebbe il libretto vecchio
+			// uguale a quello nuovo, entrambi incrementati di 1.
+			// Questo ha senso se l'oggeto voto e' una quantita' immutabile.
+
+			// nuovo.add(new Voto(v.getPunti(), v.getCorso(), v.getData()));
+			nuovo.add(v.clone()); // Factory method -> metodo che costruisce oggetti
+		}
+
+		for(Voto v : nuovo.voti) { 
+
+			// nuovo.voti -> ho preso una variabile privata
+			// di un oggetto che non sono io, cioe' this
+			// Ho creato un nuovo oggetto ma, poiche' questo oggetto
+			// e' della mia stessa classe ho accesso
+			// anche ai suoi campi privati
+
+			int punti = v.getPunti();
+			if(punti<24)
+				punti++;
+			else if(punti<=28)
+				punti = punti + 2;
+
+			v.setPunti(punti);
+		}
+
+		return nuovo;
+	}
+
+	public void cancellaVotiScarsi() {
+
+		/*for(Voto v : this.voti) {
+			if(v.getPunti()<24) {
+				this.voti.remove(v);
+			}
+		}
+		// Sto cercando di modificare il contenuto di una lista
+		// mentre la sto iterando -> java.util.ConcurrentModificationException
+		 */
+		
+		List<Voto> cancellare = new ArrayList<Voto>();
+		
+		for(Voto v : this.voti) {
+			if(v.getPunti()<24) {
+				cancellare.add(v);
+			}
+		}
+		
+		// Soltanto dopo che sono fuori dal ciclo for, rimuovo tutti
+		// gli elementi della lista cancellare
+		
+		this.voti.removeAll(cancellare);
+	}
+
+
 }
